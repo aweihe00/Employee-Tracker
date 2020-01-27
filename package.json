@@ -1,0 +1,28 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "HW #12",
+  "main": "employeetracker.js",
+  "dependencies": {
+    "inquirer": "^7.0.4",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aweihe00/Employee-Tracker.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker"
+  ],
+  "author": "Andrew Weihe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aweihe00/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/aweihe00/Employee-Tracker#readme"
+}
