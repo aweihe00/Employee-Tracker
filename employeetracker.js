@@ -6,60 +6,62 @@ const connection = mysql.createConnection({
    host: "localhost",
    port: 3306,
    user: "root",
-   password: "root",
+   password: "",
    database: "employee_db"
-})
+});
 
 connection.connect(function(err){
    if (err) throw err;
    start();
-}) 
+}) ;
 
 function start() {
    inquirer
      .prompt({
-       name: "action",
-       type: "rawlist",
+       name: "selection",
+       type: "list",
        message: "What would you like to do?",
        choices: [
-         "Add a Department",
-         "Add a Role",
-         "Add an Employee",
-         "View all departments",
-         "View all Roles",
          "View all Employees",
-         "Update Employee Roles"
+         "View Departments",
+         "View Roles",
+         "Add Employee",
+         "Add Department",
+         "Add Role",
+         "Update Employee",
        ]
      })
      .then(function(answer) {
-       switch (answer.action) {
-           case "Add a Department":
-             addDepartment();
-             break;
-     
-           case "Add a Role":
-             addRole();
-             break;
-     
-           case "Add an Employee":
-             addEmployee();
-             break;
-     
-           case "View all Departments":
-             viewDepartments();
-             break;
-     
-           case "View all Roles":
-             viewRoles();
-             break;
+      console.log(answer);
+    
+    if (answer.selection === "View All Employees") {
+      viewAll();
+    }
+    else if(answer.selection === "View Departments") {
+      viewDepts();
 
-             case "View all Employees":
-             viewEmployees();
-             break;
+    } 
+    else if(answer.selection === "View Roles") {
+      viewRoles();
 
-             case "Update Employee Roles":
-             updateRoles();
-             break;
-           }
-         });
-     }
+    }
+    else if(answer.selection === "Add Employee") {
+      addEmployee();
+
+    }
+    else if(answer.selection === "Add Department") {
+      addDept();
+
+    }
+    else if(answer.selection === "Add Role") {
+      addRole();
+
+    }
+    else if(answer.selection === "Update Employee") {
+      updateEmployee();
+
+    }else{
+      connection.end();
+    }
+  });
+}
