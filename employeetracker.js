@@ -94,3 +94,34 @@ connection.query("SELECT * FROM department", function(err, result, fields) {
   start();
 }
 ); };
+
+var roleChoices = [];
+var empChoices = [];
+var deptChoices = [];
+
+function lookupRoles(){  
+    connection.query("SELECT * FROM role", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            roleChoices.push(data[i].id + "-" + data[i].title)
+        }
+     })
+    }
+
+function lookupEmployee(){  
+     connection.query("SELECT * FROM employee", function (err, data) {
+         if (err) throw err;
+         for (i = 0; i < data.length; i++) {
+             empChoices.push(data[i].id + "-" + data[i].first_name+" "+ data[i].last_name)
+         }
+     }) 
+    }
+
+function lookupDepts(){
+  connection.query("SELECT * FROM department", function (err, data) {
+    if (err) throw err;
+    for (i = 0; i < data.length; i++) {
+        deptChoices.push(data[i].id + "-" + data[i].name)
+    }
+})
+}
