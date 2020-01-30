@@ -170,3 +170,42 @@ function addEmployee() {
     start();
   });
 };
+
+function addRole() {
+
+  lookupRoles()
+  lookupEmployee()
+  lookupDepts()
+
+  inquirer.prompt([
+  {
+    name: "role",
+    type: "input",
+    message: "Enter the role you would like to add:"
+  },
+
+  {
+      name: "dept",
+      type: "list",
+      message: "In what department would you like to add this role?",
+      choices: deptChoices
+  },
+
+  {
+    name: "salary",
+    type: "number",
+    message: "Enter the role's salary:"
+  },
+  
+   ]).then(function(answer) {
+    console.log(`${answer.role}`)
+    var getDeptId =answer.dept.split("-")
+    var query = 
+    `INSERT INTO role (title, salary, department_id)
+     VALUES ('${answer.role}','${answer.salary}','${getDeptId[0]}')`;
+    connection.query(query, function(err, res) {
+      console.log(`<br>-----new role ${answer.role} added!------`)
+    });
+    start();
+  });
+};
