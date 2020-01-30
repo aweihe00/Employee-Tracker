@@ -125,3 +125,48 @@ function lookupDepts(){
     }
 })
 }
+
+function addEmployee() {
+
+  lookupRoles()
+  lookupEmployee()
+
+  inquirer.prompt([
+  {
+    name: "firstname",
+    type: "input",
+    message: "What is the employee's first name?"
+  },
+
+  {
+      name: "lastname",
+      type: "input",
+      message: "What is the employee's last name?"
+  },
+
+  {
+      name: "role",
+      type: "list",
+      message: "What is the employee's role?",
+      choices: roleChoices 
+    },
+
+    {
+      name: "reportingTo",
+      type: "list",
+      message: "Who is the employee's manager?",
+      choices: empChoices
+    }
+  
+   ]).then(function(answer) {
+    var getRoleId =answer.role.split("-")
+    var getReportingToId=answer.reportingTo.split("-")
+    var query = 
+    `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+     VALUES ('${answer.firstname}','${answer.lastname}','${getRoleId[0]}','${getReportingToId[0]}')`;
+    connection.query(query, function(err, res) {
+      console.log(`new employee ${answer.firstname} ${answer.lastname} added!`)
+    });
+    start();
+  });
+};
