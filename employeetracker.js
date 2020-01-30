@@ -204,8 +204,82 @@ function addRole() {
     `INSERT INTO role (title, salary, department_id)
      VALUES ('${answer.role}','${answer.salary}','${getDeptId[0]}')`;
     connection.query(query, function(err, res) {
-      console.log(`<br>-----new role ${answer.role} added!------`)
+    console.log(`<br>-----new role ${answer.role} added!------`)
     });
     start();
   });
+};
+
+function addDept() {
+
+  lookupRoles()
+  lookupEmployee()
+  lookupDepts()
+
+  inquirer.prompt([
+  {
+    name: "dept",
+    type: "input",
+    message: "Enter the department you would like to add:"
+  }
+  ]).then(function(answer) {
+    var query = 
+    `INSERT INTO department (name)
+     VALUES ('${answer.dept}')`;
+    connection.query(query, function(err, res) {
+    console.log(`-------new department added: ${answer.dept}-------`)
+    });
+    start();
+  });
+};
+
+function updateEmployee() {
+
+  connection.query("SELECT * FROM employee", function (err, results) {
+    if (err) throw err;
+  inquirer.prompt([
+    {
+      name: "employee",
+      type: "list",
+      message: "Which employee would you like to update?",
+      choices: function () {
+        var choiceArray = [];
+        for (var i = 0; i < results.length; i++) {
+            choiceArray.push(results[i].id + " " + results[i].first_name + " " + results[i].last_name);
+        }
+        return choiceArray;
+      }
+    }
+  ])
+
+  .then(function (data) {
+    for (var i = 0; i < results.length; i++) {
+        if (data.employeeName === results[i].id + " " + results[i].first_name + " " + results[i].last_name) {
+            var employeeID = results[i].id;
+        }
+    }
+    return (employeeID);  
+    })
+
+    .then(function(employeeID){
+    inquirer.prompt([
+      {
+        name: "updateSelection",
+        type: "list",
+        message: "What would you like to update?",
+        choices: ["First name", "Last Name", "Role"]
+      }
+    ])
+
+    .then(function(answer){
+      if (answer.updateSelection === "First Name"){
+       newFirstName(employeeID);
+      } else if (answer.updateSelection === "Last Name"){
+       newLastName(employeeID);
+      } else if (answer.updateSelection === "Role"){
+        newEmpRole(employeeID);
+       }
+    });
+  });
+});
 };
