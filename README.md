@@ -7,10 +7,11 @@ Developers are often tasked with creating interfaces that make it easy for non-d
 
 ## Instructions
 
-1. Build a command-line application that at a minimum allows the user to:
-2. Add departments, roles, employees
-3. View departments, roles, employees
-4. Update employee roles
+Build a command-line application that at a minimum allows the user to:
+
+1. Add departments, roles, employees
+2. View departments, roles, employees
+3. Update employee roles
 
 ## Usage
 
