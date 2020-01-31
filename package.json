@@ -4,8 +4,11 @@
   "description": "HW #12",
   "main": "employeetracker.js",
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^7.0.4",
-    "mysql": "^2.18.1"
+    "my": "^0.3.3",
+    "mysql": "^2.18.1",
+    "sql": "^0.78.0"
   },
   "devDependencies": {},
   "scripts": {
